@@ -1,6 +1,6 @@
-# sails-angular2
+# gas-bot
 
-A sample Sails and Angular 2 starter app
+(c) Nu-Worx Innovations 2017
 
 To run this you will need typescript compiler and npm/node installed and setup.
 

@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'api_rest'
+    connection: 'restXignite'
   }
 
 };

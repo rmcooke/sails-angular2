@@ -8,7 +8,7 @@ url = require('url');
 */
 
 module.exports = {
-  connection: 'rest',
+  connection: 'restLocal',
   attributes: {
   firstName: 'string',
   lastName: 'string'
@@ -31,4 +31,5 @@ module.exports = {
     req = request[httpMethod](endpoint);
     req.end(cb);
   }
+
 };

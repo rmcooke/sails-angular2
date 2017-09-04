@@ -8,7 +8,7 @@ url = require('url');
 */
 
 module.exports = {
-  connection: 'rest',
+  connection: 'restLocal',
   attributes: {
     firstName: 'string',
     lastName: 'string'

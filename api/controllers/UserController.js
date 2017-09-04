@@ -2,6 +2,7 @@
  * UserController
  *
  * @description :: Server-side logic for managing Users
+
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -12,6 +13,7 @@ module.exports = {
        * Find all users
        */
       find: function (req, res) {
+        console.log('User.find');
         User.find().exec(function (err, users) {
           if(err) 
             return res.status(500).json(err);
@@ -27,8 +29,10 @@ module.exports = {
        */
       findOne: function (req, res) {
         User.findOne({ id: req.params.id }).exec(function (err, user) {
-          if(err) return res.json({ err: err }, 500);
-          else res.json(user);
+          if(err) 
+            return res.status(500).json(err);
+          else 
+            res.json(user);
         });
       },
     
@@ -39,7 +43,7 @@ module.exports = {
        */
       create: function (req, res) {
         User.create({ firstName: req.body.firstName, lastName: req.body.lastName}).exec(function (err, user) {
-          if(err) return res.json({ err: err }, 500);
+          if(err) return res.status(500).json(err);
           else res.json(user);
         });
       },
@@ -51,7 +55,7 @@ module.exports = {
        */
       update: function (req, res) {
         User.update({id: req.params.id}, {firstName: req.body.firstName}).exec(function (err, user) {
-          if(err) return res.json({ err: err }, 500);
+          if(err) return res.status(500).json(err);
           else res.json(user);
         });
       },
@@ -62,7 +66,7 @@ module.exports = {
        */
       destroy: function (req, res) {
         User.destroy({id: req.params.id}).exec(function (err, user) {
-          if(err) return res.json({ err: err }, 500);
+          if(err) return res.status(500).json(err);
           else res.ok();
         });
       }

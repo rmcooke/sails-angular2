@@ -86,9 +86,9 @@ module.exports.connections = {
   /**********************************************
   * see https://github.com/zohararad/sails-rest *
   **********************************************/
-  rest: {
+  restLocal : {
     adapter: 'sails-rest',
-    host:     'localhost:8080',  // api host
+    host:     'localhost:8000',  // api host
     protocol: 'http',            // api HTTP protocol
     pathname: '',                // api endpoint path name
     headers:  {},                // Optional HTTP headers
@@ -97,8 +97,22 @@ module.exports.connections = {
       before:   [],              // array of hook functions that run before a request
       after:    []               // array of hook functions that run after a request
     }
+  },
+  restXignite : {
+    adapter: 'sails-rest',
+    //TODO: Move this token to a safe place
+    host:     'www.xignite.com',  // api host
+    protocol: 'https',            // api HTTP protocol
+    pathname: 'xGlobalHistorical.json',                // api endpoint path name
+    headers:  {},                // Optional HTTP headers
+    hooks: {
+      merge:    true,            // flag that indicates whether or not to merge build-in hooks with user-provided hooks
+      before:   [],              // array of hook functions that run before a request
+      after:    []               // array of hook functions that run after a request
+    }
   }
 };
+
 /****************************************************************************
  * More adapters: https://github.com/balderdashy/sails                      *
  *                                                                          *
