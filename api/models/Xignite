@@ -1,0 +1,138 @@
+module.exports = {
+ 
+    connection: 'api_rest',
+    attributes: {
+        path: "/api/testUser/getUser.json",
+        host: {
+            localHost: "localhost",
+            developmentHost: "your_dev_host",
+            qaHost: "your_qa_host"
+        },
+        productionHost: "your_prod_host",
+        sslCert: "your_cert"
+    },
+ 
+    /**
+     * This API-specific request builder allows the adapter methods to be
+     * merely declarative. This method is required, with the signature and functionality described below.
+     *
+     * This method includes only GET and POST requests. We don't expect tenant application will
+     * use the XRAE service layer for data management, only data fetches.
+     *
+     * Here's where you build out the API route and query string or POST body, based on values
+     * in the options argument. This method is called from the adapter verb, which has access to this
+     * model and the Sails request object. Thus, the options argument can be pretty much whatever this
+     * method requires.
+     *
+     * The execution begins with handling any parameter injection required in the route. Next is handling
+     * the CRUD verb-specific requirements. A GET might need some query string parameters that are derived
+     * from the Sails request object. A POST should need some body key-value pairs, at least. This method
+     * return a request object that the adapter method uses to construct the node Superagent request.
+     *
+     * The adapter methods require the GET query string and POST body to have a defined format. While the node
+     * Superagent can handle differently formatted objects, the adapter methods are written to handle one
+     * format, in the interest of simplicity.
+     *
+     * The GET query string format is an object. For example:
+     *  {metric_id: 4, timeframe: 'daily', word: 'to_your_mother'}
+     *
+     * The POST body format is identical to the query string object. It's an object containing
+     * key-value pairs, where the key is not quoted, but the value, if a string, is. Of course,
+     * the value could end up being an object, in which case you would follow the same convention.
+     *
+     *
+     *
+     * @param crudVerb
+     * @param options
+     * @returns {*}
+     */
+ 
+ 
+    requestBuilder: function(crudVerb, options) {
+        var locCrudVerb = crudVerb.toLowerCase();
+        var request = {};
+        var crudOperations = {
+ 
+            get: function() {
+ 
+                var queryString = {};
+ 
+                //Build query string parameters, based on the incoming options 
+                // Refer to the query string format in the block comment for this method. 
+ 
+                //Set the request.queryString to the query string you just built. 
+                // Since we're not doing anything here, we are returning the default value. 
+                if(request.endpoint.indexOf('?') === -1) {
+                    request.endpoint += queryString;
+                }
+                return request;
+            },
+ 
+            post: function() {
+                var body = {};
+ 
+                //Build the POST body, based on the incoming options 
+                // Refer to the body format in the block comment for this method. 
+ 
+                //Set request.body to the body you just built 
+                request.body = body;
+                return request;
+            },
+ 
+ 
+        };
+ 
+        //Use this method to inject route parameters if needed, based on values in the options argument object 
+        var routeBuilder = function(cb) {
+            //Since most routes aren't super duper complex, it's okay to use string manipulation 
+            // to handle the find - replace operation. Do that here. 
+ 
+            //Set request.endpoint 
+            //Here we return the default, since we aren't doing anything for this API call 
+ 
+            //Derive the api host, based on the current server environment. The model attributes 
+            // define this api call's host, based on whether the environment is local, development, qa or production. 
+            // Since we are defining the api host key in the attributes at the beginning of this model file, the 
+            // developer has some flexibility on how this is named. 
+            var procHost = process.env.HOSTNAME;
+            var env = process.env.NODE_ENV;
+            var apiHost;
+ 
+            //TODO: figure out a better way to determine whether this is a local environment. 
+            if(procHost === 'xrae.local') {
+                apiHost = options.host.localHost;
+            }
+            else {
+                var hostIndex = env + "Host";
+                apiHost = options.host[hostIndex];
+            }
+ 
+            request.route = options.path;
+            request.endpoint = options.protocol + "://" + apiHost + request.route;
+            return cb();
+        };
+ 
+        return routeBuilder(crudOperations[locCrudVerb]);
+    },
+ 
+ 
+ 
+    //Use this method to generate an authentication header. Here's where you can extract 
+    // a token from the Sails request and construct the header object used by the adapter 
+    // when it makes the API request. This also sends a basic authentication header, if required. 
+    authHeaderBuilder: function() {
+        var authHeader = {};
+        var basicAuthString = new Buffer("johnson:foo").toString('base64');
+        authHeader.authentication = UserService.fullSessionId;
+        authHeader.authorization = 'basic ' + basicAuthString;
+        return authHeader;
+    },
+ 
+    responseHandler: function(response) {
+        var result = {};
+        result.name = response.body.name;
+        result.uid = response.body.uid;
+        return result;
+    }
+};
+

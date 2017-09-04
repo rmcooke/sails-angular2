@@ -83,8 +83,23 @@ module.exports.connections = {
   // }
 
 
-  /***************************************************************************
-  *                                                                          *
+  /**********************************************
+  * see https://github.com/zohararad/sails-rest *
+  **********************************************/
+  rest: {
+    adapter: 'sails-api-rest',
+    host:     'localhost:8080',  // api host
+    protocol: 'https',            // api HTTP protocol
+    pathname: '',                // api endpoint path name
+    headers:  {},                // Optional HTTP headers
+    hooks: {
+      merge:    true,            // flag that indicates whether or not to merge build-in hooks with user-provided hooks
+      before:   [],              // array of hook functions that run before a request
+      after:    []               // array of hook functions that run after a request
+    }
+  }
+
+};                                                                        *
   * More adapters: https://github.com/balderdashy/sails                      *
   *                                                                          *
   ***************************************************************************/
