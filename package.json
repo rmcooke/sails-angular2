@@ -1,8 +1,8 @@
 {
-  "name": "sails-angular2",
+  "name": "gas-platform",
   "private": true,
   "version": "0.3.0",
-  "description": "a Sails + Angular 4 sample application",
+  "description": "A financial advisor built on Sails + Angular 4",
   "keywords": [],
   "dependencies": {
     "@angular/common": "4.2.2",
@@ -38,6 +38,7 @@
     "rxjs": "5.4.0",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
+    "sails-rest": "^0.1.1",
     "systemjs": "0.19.40",
     "tsc": "^1.20150623.0",
     "zone.js": "0.8.12"
@@ -49,14 +50,14 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/xmaestro/sails-angular2.git"
+    "url": "git@bitbucket.org:richard_mallender/gas-bot.git"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.41",
     "typescript": "2.3.4"
   },
-  "author": "xmaestro",
-  "license": "",
+  "author": "richard.mallender@gmail.com",
+  "license": "Apache-2",
   "resolutions": {
     "ejs": "2.3.4",
     "include-all": "1.0.8",
