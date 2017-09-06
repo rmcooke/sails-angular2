@@ -42,7 +42,7 @@ module.exports = {
        * Create a new Post
        */
       create: function (req, res) {
-        console.log('Post.create');
+        console.log(JSON.stringify(req));
         Post.create({ firstName: req.body.firstName, lastName: req.body.lastName}).exec(function (err, Post) {
           if(err) return res.status(500).json(err);
           else res.json(Post);
