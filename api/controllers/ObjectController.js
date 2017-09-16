@@ -1,10 +1,9 @@
 /**
- * HookController
+ * ObjectController
  *
- * @description :: Server-side logic for managing Hooks
- * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * @description :: Server-side actions for handling incoming requests.
+ * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
 
 /* The below is needed because API.AI sends dots in keys
  * which is not tolerated by Mongo
@@ -16,7 +15,7 @@ var googleFinance = require('google-finance');
 module.exports = {
   /**
    * This is the controller which is called on
-   * each and every request made to the webhook.
+   * each and every request made to the webobject.
    */
   create: function (req, res) {
     let id = req.param('id'),
@@ -26,7 +25,7 @@ module.exports = {
         status = req.param('status'),
         sessionId = req.param('sessionId');
 
-    Hook.create({
+    object.create({
       id : id,
       timestamp : timestamp,
       lang : lang,
@@ -34,13 +33,13 @@ module.exports = {
       status : status,
       sessionId : sessionId
     })
-    .then(_hook => {
-      if(!_hook) return res.serverError({err:'Unable to create hook'});
+    .then(_object => {
+      if(!_object) return res.serverError({err:'Unable to create object'});
       // Fetch the ticker symbol from the JSON
       // <TODO> Work out what to do when ticker has not been figured out by
       // API.AI layer 
-      if (result.tickerSymbol !== undefined) {
-          var ticker = result.tickerSymbol;
+      if (req.param('result').tickerSymbol !== undefined) {
+          var ticker = req.parameters.tickerSymbol;
           var now = new Date();
           var formatDate = now.toJSON().substr(0, 10);
           now.setDate(now.getDate() - 1);
@@ -54,53 +53,55 @@ module.exports = {
             if (!_quote) throw new Error('Error calling google finance module');
             return _quote;
           })
-      .then(_hook => {
-        if (!_hook) throw new Error('Unable to create new post');
-        return res.json({ hook: _hook });
+      .then(_object => {
+        if (!_object) throw new Error('Unable to create new post');
+        return res.json({ object: _object });
       })
     }}).catch(err => res.serverError(err.message));
   },
 
   /**
-   * `HookController.findAll()`
+   * `objectController.findAll()`
    */  
   findAll: function (req, res) {
-    Hook.find()
+    object.find()
       .populate('timestamp')
       .populate('lang')
       .populate('status')
       .populate('sessionId')
-      .then(_hooks => {
-        if (!_hooks || _hooks.length === 0) {
-          throw new Error('No hook found');
+      .then(_objects => {
+        if (!_objects || _objects.length === 0) {
+          throw new Error('No object found');
         }
-        return res.ok(_hooks);
+        return res.ok(_objects);
       })
       .catch(err => res.serverError(err));
   },
 
 
   /**
-   * `HookController.findOne()`
+   * `objectController.findOne()`
    */
 
   findOne: function (req, res) {
 
-    let hookId = req.params.id;
+    let objectId = req.params.id;
 
-    if (!hookId) return res.badRequest({ err: 'missing hook_id field' });
+    if (!objectId) return res.badRequest({ err: 'missing object_id field' });
 
-    Hook.findOne({ id: hookId })
+    object.findOne({ id: objectId })
       .populate('timestamp')
       .populate('lang')
       .populate('status')
       .populate('sessionId')      
-      .then(_hook => {
-        if (!_hook) return res.notFound({ err: 'No hook found' });
+      .then(_object => {
+        if (!_object) return res.notFound({ err: 'No object found' });
 
-        return res.ok(_hook);
+        return res.ok(_object);
       })
       .catch(err => res.serverError(err));
   },
 };
+
+
 
