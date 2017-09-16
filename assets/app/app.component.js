@@ -13,7 +13,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>My First Angular/Sails App</h1>'
+            template: '<h1>Aardvark 0.1</h1>'
         })
     ], AppComponent);
     return AppComponent;
