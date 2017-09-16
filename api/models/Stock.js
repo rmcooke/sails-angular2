@@ -1,25 +1,7 @@
-<<<<<<< HEAD
-/**
- * User.js
- *
- * @description :: A model definition.  Represents a database table/collection/etc.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
- */
-
-module.exports = {
-
-  attributes: {
-
-
-  },
-
-};
-
-=======
 var request = require('superagent'),
 url = require('url');
 /**
-* User.js
+* Stock.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -28,8 +10,8 @@ url = require('url');
 module.exports = {
   connection: 'restLocal',
   attributes: {
-  firstName: 'string',
-  lastName: 'string'
+    firstName: 'string',
+    lastName: 'string'
 },
 /**
 * Send an arbitrary GET query to REST backend
@@ -39,7 +21,7 @@ module.exports = {
 */
   query: function (path, query, cb) {
     var httpMethod = 'get',
-      config = User.datastore.config,
+      config = Stock.datastore.config,
       endpoint = url.format({
                 host: config.host,
                 pathname: path,
@@ -49,6 +31,4 @@ module.exports = {
     req = request[httpMethod](endpoint);
     req.end(cb);
   }
-
 };
->>>>>>> 38d5235e7fbef9a74f06409d913decccc146ba69

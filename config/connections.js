@@ -83,10 +83,51 @@ module.exports.connections = {
   // }
 
 
-  /***************************************************************************
-  *                                                                          *
-  * More adapters: https://github.com/balderdashy/sails                      *
-  *                                                                          *
-  ***************************************************************************/
-
+  /**********************************************
+  * see https://github.com/zohararad/sails-rest *
+  **********************************************/
+  restLocal : {
+    adapter: 'sails-rest',
+    host:     'localhost:8000',  // api host
+    protocol: 'http',            // api HTTP protocol
+    pathname: '',                // api endpoint path name
+    headers:  {},                // Optional HTTP headers
+    hooks: {
+      merge:    true,            // flag that indicates whether or not to merge build-in hooks with user-provided hooks
+      before:   [],              // array of hook functions that run before a request
+      after:    []               // array of hook functions that run after a request
+    }
+  },
+  restXignite : {
+    adapter: 'sails-rest',
+    //TODO: Move this token to a safe place
+    host:     'www.xignite.com',  // api host
+    protocol: 'https',            // api HTTP protocol
+    pathname: 'xGlobalHistorical.json',                // api endpoint path name
+    headers:  {},                // Optional HTTP headers
+    hooks: {
+      merge:    true,            // flag that indicates whether or not to merge build-in hooks with user-provided hooks
+      before:   [],              // array of hook functions that run before a request
+      after:    []               // array of hook functions that run after a request
+    }
+  },
+  restSpartacus: {
+    adapter: 'sails-rest',
+    host:     'spartacus-node.mybluemix.net',  // api host
+    protocol: 'http',            // api HTTP protocol
+    pathname: 'webhook_trigger',                // api endpoint path name
+    headers:  {},                // Optional HTTP headers
+    hooks: {
+      merge:    true,            // flag that indicates whether or not to merge build-in hooks with user-provided hooks
+      before:   [],              // array of hook functions that run before a request
+      after:    []               // array of hook functions that run after a request
+    }
+  },
 };
+
+/****************************************************************************
+ * More adapters: https://github.com/balderdashy/sails                      *
+ *                                                                          *
+ ***************************************************************************/
+
+
