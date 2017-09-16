@@ -1,17 +1,6 @@
 /**
  * UserController
  *
-<<<<<<< HEAD
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
-
-module.exports = {
-  
-
-};
-
-=======
  * @description :: Server-side logic for managing Users
 
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
@@ -83,4 +72,3 @@ module.exports = {
       }
     };
     
->>>>>>> 38d5235e7fbef9a74f06409d913decccc146ba69

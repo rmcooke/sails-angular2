@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-/**
- * User.js
- *
- * @description :: A model definition.  Represents a database table/collection/etc.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
- */
-
-module.exports = {
-
-  attributes: {
-
-
-  },
-
-};
-
-=======
 var request = require('superagent'),
 url = require('url');
 /**
@@ -51,4 +33,3 @@ module.exports = {
   }
 
 };
->>>>>>> 38d5235e7fbef9a74f06409d913decccc146ba69
