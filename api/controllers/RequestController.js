@@ -45,7 +45,7 @@ module.exports = {
       })
       .then(_quote => 
       {
-        if (!_quote) throw new Error('Error calling google finance module');
+         if (!_quote) throw new Error('Error calling google finance module');
         return _quote;
       })
     })
